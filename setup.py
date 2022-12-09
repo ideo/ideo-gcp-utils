@@ -7,5 +7,5 @@ setup(name='ideo_gcp_utils',
       author='IDEO DS',
       license='MIT License',
       packages=find_packages(),
-      requires=['google-cloud-storage', 'google-api-python-client'],
+      install_requires=['google-cloud-storage', 'google-api-python-client'],
       zip_safe=False)
