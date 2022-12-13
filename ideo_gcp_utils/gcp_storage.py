@@ -53,7 +53,7 @@ class Bucket:
         # FIXME: concatenation of data dir and filename depending on type
         if data_dir[-1]=='/':
             data_dir = data_dir[:-1]
-        source_filename = f"{data_dir}/reddit_data/{filename}"
+        source_filename = f"{data_dir}/{filename}"
         try:
             Bucket.upload_blob(self.bucket_name, source_filename, filename)
 
