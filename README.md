@@ -1,4 +1,4 @@
-# IDEO Topic Modeler
+# IDEO Google Cloud Utilities
 
 A IDEO maintained package for interfacing the Google Cloud Storage and Compute Engine tools through Python.
 
