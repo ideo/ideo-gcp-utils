@@ -3,12 +3,6 @@
 
 import googleapiclient.discovery
 
-# ZONE_NAME           = 'us-east1-b'                      # Zone name
-# PROJECT_NAME        = 'gcloud-java-examples'            # Project name
-# IMAGE_NAME          = "ubuntu-1604-lts"                 # Image name
-# IMAGE_PROJECT_NAME  = "ubuntu-os-cloud"                 # Image project name
-# INSTANCE_TYPE       = "n1-standard-1"                   # Instance type
-# INSTANCE_NAME       = "my-instance"                     # Name of the instance
 
 class ComputeEngine:
 
