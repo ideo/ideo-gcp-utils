@@ -3,14 +3,22 @@ from pathlib import Path
 from google.cloud import storage
 from requests.exceptions import ConnectionError
 
+
 class Bucket:
 
-    def __init__(self, bucket_name):
+    def __init__(self, bucket_name, credentials=None):
         self.bucket_name = bucket_name
+        self.credentials = credentials
+
+        if self.credentials:
+            self.client = storage.Client(credentials=self.credentials)
+        else:
+            self.client = storage.Client()
+    
 
     def get_bucket_object_metadata(self):
-        storage_client = storage.Client()
-        blobs = storage_client.list_blobs(self.bucket_name)
+        # storage_client = storage.Client()
+        blobs = self.client.list_blobs(self.bucket_name)
 
         obj_metadata = [{
             "Name":     blob.name,
@@ -24,8 +32,8 @@ class Bucket:
         """
         Pings the bucket to return the names of all the files
         """
-        storage_client = storage.Client()
-        blobs = storage_client.list_blobs(self.bucket_name)
+        # storage_client = storage.Client()
+        blobs = self.client.list_blobs(self.bucket_name)
         blob_names = [blob.name for blob in blobs]
         return blob_names
 
@@ -76,8 +84,8 @@ class Bucket:
     # The follow example scripts were taken from the following documentation:
     # https://cloud.google.com/storage/docs/reference/libraries#more_examples
 
-    @staticmethod
-    def download_blob(bucket_name, source_blob_name, destination_file_name):
+    # @staticmethod
+    def download_blob(self, bucket_name, source_blob_name, destination_file_name):
         """Downloads a blob from the bucket."""
         # The ID of your GCS bucket
         # bucket_name = "your-bucket-name"
@@ -88,9 +96,9 @@ class Bucket:
         # The path to which the file should be downloaded
         # destination_file_name = "local/path/to/file"
 
-        storage_client = storage.Client()
+        # storage_client = storage.Client()
 
-        bucket = storage_client.bucket(bucket_name)
+        bucket = self.client.bucket(bucket_name)
 
         # Construct a client side representation of a blob.
         # Note `Bucket.blob` differs from `Bucket.get_blob` as it doesn't retrieve
@@ -105,8 +113,8 @@ class Bucket:
             )
         )
 
-    @staticmethod
-    def upload_blob(bucket_name, source_file_name, destination_blob_name):
+    # @staticmethod
+    def upload_blob(self, bucket_name, source_file_name, destination_blob_name):
         """Uploads a file to the bucket."""
         # The ID of your GCS bucket
         # bucket_name = "your-bucket-name"
@@ -116,8 +124,8 @@ class Bucket:
         # destination_blob_name = "storage-object-name"
 
         print("Uploading to cloud...")
-        storage_client = storage.Client()
-        bucket = storage_client.bucket(bucket_name)
+        # storage_client = storage.Client()
+        bucket = self.client.bucket(bucket_name)
         blob = bucket.blob(destination_blob_name)
 
         print(storage.blob._MAX_MULTIPART_SIZE)
