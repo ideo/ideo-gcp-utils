@@ -46,7 +46,8 @@ class Bucket:
         if data_dir[-1]=='/':
             data_dir = data_dir[:-1]
         destination_filename = f"{data_dir}/{filename}"
-        Bucket.download_blob(self.bucket_name, filename, destination_filename)
+        # Bucket.download_blob(self.bucket_name, filename, destination_filename)
+        self.download_blob(self.bucket_name, filename, destination_filename)
 
 
     def upload_file(self, filename, data_dir):
@@ -63,7 +64,8 @@ class Bucket:
             data_dir = data_dir[:-1]
         source_filename = f"{data_dir}/{filename}"
         try:
-            Bucket.upload_blob(self.bucket_name, source_filename, filename)
+            # Bucket.upload_blob(self.bucket_name, source_filename, filename)
+            self.upload_blob(self.bucket_name, source_filename, filename)
 
         except ConnectionError:
             warning_message = """
@@ -77,7 +79,9 @@ class Bucket:
             chunk_size *= 1024 * 1024
             storage.blob._DEFAULT_CHUNKSIZE = chunk_size
             storage.blob._MAX_MULTIPART_SIZE = chunk_size
-            Bucket.upload_blob(self.bucket_name, source_filename, filename)
+            # Bucket.upload_blob(self.bucket_name, source_filename, filename)
+            self.upload_blob(self.bucket_name, source_filename, filename)
+            
 
 
     ################### Google Cloud Storage Example Scripts ###################
